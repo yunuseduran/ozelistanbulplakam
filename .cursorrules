@@ -1,0 +1,116 @@
+# Özel İstanbul Plakam Web Sitesi - Cursor AI Kuralları
+
+## Proje Genel Kuralları
+- Bu proje İstanbul merkezli özel plaka hizmeti veren bir firma için modern, SEO uyumlu web sitesi
+- Ana renk kodu: #003399 (koyu mavi)
+- Responsive ve mobil öncelikli tasarım yapılacak
+- WhatsApp entegrasyonu zorunlu
+- SEO en iyi uygulamaları takip edilecek
+
+## Kod Standartları
+### HTML
+- Semantic HTML5 etiketleri kullan
+- Accessibility standartlarına uy (ARIA labels, alt texts)
+- Meta tags her sayfada optimize edilmiş olmalı
+- Schema.org strukturlu veri ekle
+
+### CSS
+- Modern CSS (Flexbox, Grid) kullan
+- BEM metodolojisi tercih et
+- Mobile-first yaklaşım benimse
+- CSS Variables kullan (ana renk #003399 için)
+- Optimize edilmiş animasyonlar
+
+### JavaScript
+- Vanilla JavaScript tercih et, gerekmedikçe framework kullanma
+- Async/await syntax kullan
+- Performance odaklı kod yaz
+- Error handling ekle
+
+## SEO Gereksinimleri
+- Her sayfa için unique title ve meta description
+- H1-H6 hiyerarşisine dikkat et
+- Internal linking stratejisi uygula
+- Image optimization (WebP format, lazy loading)
+- Anahtar kelimeler: "özel plaka", "istanbul özel plaka", "özel plaka fiyatları"
+
+## İçerik Kuralları
+- Türkçe içerik, profesyonel dil kullan
+- Özel plaka terimleri açıklayıcı olsun
+- Call-to-action butonları belirgin
+- İletişim bilgileri her sayfada erişilebilir
+
+## Teknik Gereksinimler
+- Bootstrap 5 kullan
+- Font Awesome iconlar
+- Google Fonts (Roboto, Open Sans tercih)
+- Lazy loading images
+- Minified CSS/JS
+
+## Dosya Yapısı
+```
+/
+├── index.html (Anasayfa)
+├── hizmetler.html
+├── ozel-plaka-sorgulama.html
+├── hakkimizda.html
+├── iletisim.html
+├── css/
+│   ├── style.css
+│   └── responsive.css
+├── js/
+│   ├── main.js
+│   └── whatsapp.js
+├── images/
+│   ├── ozelistanbulplakalogo.png
+│   ├── banner-1.jpg
+│   ├── banner-2.jpg
+│   └── ozelistanbulplakamicerik.jpg
+└── sitemap.xml
+```
+
+## WhatsApp Entegrasyonu
+- Sabit buton sağ alt köşede
+- Tıklanınca otomatik mesaj: "Merhaba, özel plaka hizmetleri hakkında bilgi almak istiyorum."
+- Responsive olmalı
+- Hover efektleri ekle
+
+## Performans
+- PageSpeed score >90 hedefle
+- Image compression uygula
+- CSS/JS minification
+- Lazy loading implementation
+- Font display: swap kullan
+
+## Browser Uyumluluğu
+- Chrome, Firefox, Safari, Edge son 2 versiyon
+- Mobile browsers optimize et
+- Progressive enhancement yaklaşımı
+
+## Renk Paleti
+- Ana renk: #003399 (Koyu mavi)
+- Accent: #0066CC (Açık mavi)
+- Text: #333333 (Koyu gri)
+- Background: #FFFFFF (Beyaz)
+- Secondary: #F8F9FA (Açık gri)
+
+## İkonlar ve Görseller
+- SVG iconlar tercih et
+- Alt text her görselde zorunlu
+- Lazy loading uygula
+- WebP format kullan (fallback ile)
+
+## Form Validations
+- HTML5 validation + JavaScript
+- User-friendly error messages
+- Loading states
+- Success/error feedback
+
+## Accessibility
+- WCAG 2.1 AA standartları
+- Keyboard navigation
+- Screen reader uyumlu
+- Color contrast ratios
+- Focus indicators
+
+Bu kuralları takip ederek modern, performanslı ve SEO uyumlu bir web sitesi oluştur. 

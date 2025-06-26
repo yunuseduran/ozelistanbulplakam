@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Ana sayfalar
+Allow: /index.html
+Allow: /hizmetler.html
+Allow: /ozel-plaka-sorgulama.html
+Allow: /hakkimizda.html
+Allow: /iletisim.html
+
+# Statik dosyalar
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Sitemap
+Sitemap: https://ozelistanbulplakam.com/sitemap.xml
+
+# Disallow - Geçici sayfalar veya özel dizinler
+Disallow: /temp/
+Disallow: /admin/
+Disallow: /backup/
+
+# Arama motoru optimizasyonu
+Crawl-delay: 1 
