@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeWhatsAppIntegration();
     initializeSmoothScrolling();
     initializeAnimationsOnScroll();
+    initializePlakaPreview();
 });
 
 // Counter Animation for Statistics
@@ -416,30 +417,50 @@ function searchPlaka(plaka) {
     const resultsContainer = document.querySelector('#search-results');
     
     if (resultsContainer) {
-        resultsContainer.innerHTML = '<div class="text-center"><div class="loading"></div> Sorgulanıyor...</div>';
+        resultsContainer.innerHTML = '<div class="text-center py-4"><div class="loading"></div> <span class="ms-2">Sorgulanıyor...</span></div>';
         
         // Simulate API call (replace with actual endpoint)
         setTimeout(() => {
-            const isAvailable = Math.random() > 0.5; // Random availability for demo
+            const isAvailable = true; // Tüm plakalar müsait olarak gösterilir
             
             if (isAvailable) {
                 resultsContainer.innerHTML = `
-                    <div class="alert alert-success">
-                        <h5><i class="fas fa-check-circle"></i> Plaka Müsait!</h5>
-                        <p><strong>${plaka}</strong> plakası şu anda müsaittir.</p>
-                        <button class="btn btn-primary" onclick="requestPlaka('${plaka}')">
-                            <i class="fas fa-envelope"></i> Talep Et
-                        </button>
+                    <div class="alert alert-success border-0 shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-check-circle text-success me-2 fs-4"></i>
+                            <h5 class="mb-0 text-success fw-bold">Plaka Müsait Olabilir!</h5>
+                        </div>
+                        <p class="mb-4 text-dark">
+                            <strong>${plaka}</strong> plakası müsait olabilir, bizimle iletişime geçin.
+                        </p>
+                        <div class="mt-3">
+                            <p class="mb-3 text-muted">Bu plaka hakkında detaylı bilgi almak için:</p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button class="btn btn-success px-4" onclick="requestPlaka('${plaka}')">
+                                    <i class="fas fa-phone me-2"></i>Hemen Ara
+                                </button>
+                                <button class="btn btn-outline-success px-4" onclick="whatsappContact('${plaka}')">
+                                    <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 `;
             } else {
                 resultsContainer.innerHTML = `
-                    <div class="alert alert-warning">
-                        <h5><i class="fas fa-exclamation-triangle"></i> Plaka Müsait Değil</h5>
-                        <p><strong>${plaka}</strong> plakası şu anda müsait değildir.</p>
-                        <button class="btn btn-outline-primary" onclick="suggestAlternatives('${plaka}')">
-                            <i class="fas fa-lightbulb"></i> Alternatif Öneriler
-                        </button>
+                    <div class="alert alert-warning border-0 shadow-sm">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-exclamation-triangle text-warning me-2 fs-4"></i>
+                            <h5 class="mb-0 text-warning fw-bold">Plaka Müsait Değil</h5>
+                        </div>
+                        <p class="mb-4 text-dark">
+                            <strong>${plaka}</strong> plakası şu anda müsait değildir.
+                        </p>
+                        <div class="mt-3">
+                            <button class="btn btn-outline-primary px-4" onclick="suggestAlternatives('${plaka}')">
+                                <i class="fas fa-lightbulb me-2"></i>Alternatif Öneriler
+                            </button>
+                        </div>
                     </div>
                 `;
             }
@@ -449,11 +470,29 @@ function searchPlaka(plaka) {
 
 // Request plaka
 function requestPlaka(plaka) {
+    // Direct phone call
+    window.location.href = 'tel:+905467606363';
+    
     showNotification(`${plaka} plakası için talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.`, 'success');
     
     // Track request (for analytics)
     if (typeof gtag !== 'undefined') {
         gtag('event', 'plaka_request', {
+            'event_category': 'Plaka',
+            'event_label': plaka
+        });
+    }
+}
+
+// WhatsApp contact for plaka
+function whatsappContact(plaka) {
+    const message = `Merhaba, ${plaka} plakası hakkında bilgi almak istiyorum. Bu plaka müsait mi?`;
+    const whatsappUrl = `https://wa.me/905467606363?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Track WhatsApp contact
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'whatsapp_contact', {
             'event_category': 'Plaka',
             'event_label': plaka
         });
@@ -535,4 +574,146 @@ function initializeAccessibility() {
 }
 
 // Initialize accessibility features
-initializeAccessibility(); 
+initializeAccessibility();
+
+// Plaka Preview Dynamic Update
+function initializePlakaPreview() {
+    const ilKoduSelect = document.querySelector('#ilKodu');
+    const plakaHarfInput = document.querySelector('#plakaHarf');
+    const plakaSayiInput = document.querySelector('#plakaSayi');
+    
+    const previewIl = document.querySelector('#preview-il');
+    const previewHarf = document.querySelector('#preview-harf');
+    const previewSayi = document.querySelector('#preview-sayi');
+    
+    if (!ilKoduSelect || !plakaHarfInput || !plakaSayiInput) return;
+    
+    // Update preview on input changes
+    ilKoduSelect.addEventListener('change', updatePreview);
+    plakaHarfInput.addEventListener('input', updatePreview);
+    plakaSayiInput.addEventListener('input', updatePreview);
+    
+    function updatePreview() {
+        const ilKodu = ilKoduSelect.value || '34';
+        const harf = plakaHarfInput.value.toUpperCase() || 'ABC';
+        const sayi = plakaSayiInput.value || '123';
+        
+        if (previewIl) previewIl.textContent = ilKodu;
+        if (previewHarf) previewHarf.textContent = harf;
+        if (previewSayi) previewSayi.textContent = sayi;
+        
+        // Add animation effect
+        const plakaBox = document.querySelector('.plaka-box');
+        if (plakaBox) {
+            plakaBox.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                plakaBox.style.transform = 'scale(1)';
+            }, 200);
+        }
+    }
+    
+    // Input restrictions
+    plakaHarfInput.addEventListener('input', function(e) {
+        // Only allow letters and convert to uppercase
+        let value = e.target.value.replace(/[^A-Za-z]/g, '').toUpperCase();
+        if (value.length > 3) value = value.substring(0, 3);
+        e.target.value = value;
+    });
+    
+    plakaSayiInput.addEventListener('input', function(e) {
+        // Only allow numbers
+        let value = e.target.value.replace(/[^0-9]/g, '');
+        if (value.length > 4) value = value.substring(0, 4);
+        e.target.value = value;
+    });
+}
+
+// Form Enhancement for Search
+document.addEventListener('DOMContentLoaded', function() {
+    const plakaForm = document.querySelector('#plakaForm');
+    
+    if (plakaForm) {
+        plakaForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const ilKodu = document.querySelector('#ilKodu').value;
+            const plakaHarf = document.querySelector('#plakaHarf').value;
+            const plakaSayi = document.querySelector('#plakaSayi').value;
+            
+            if (!ilKodu) {
+                showNotification('Lütfen il kodu seçin.', 'warning');
+                return;
+            }
+            
+            if (!plakaHarf) {
+                showNotification('Lütfen plaka harflerini girin.', 'warning');
+                return;
+            }
+            
+            if (!plakaSayi) {
+                showNotification('Lütfen plaka sayılarını girin.', 'warning');
+                return;
+            }
+            
+            const fullPlaka = `${ilKodu} ${plakaHarf} ${plakaSayi}`;
+            searchPlaka(fullPlaka);
+            
+            // Show search results container
+            const resultsContainer = document.querySelector('#search-results');
+            if (resultsContainer) {
+                resultsContainer.style.display = 'block';
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+});
+
+// Suggest alternative plakas
+function suggestAlternatives(originalPlaka) {
+    const alternatives = [
+        originalPlaka.replace(/.$/, '1'),
+        originalPlaka.replace(/.$/, '2'),
+        originalPlaka.replace(/.$/, '3'),
+        originalPlaka.replace(/\d+$/, '123'),
+        originalPlaka.replace(/\d+$/, '456')
+    ];
+    
+    const uniqueAlternatives = [...new Set(alternatives)].filter(alt => alt !== originalPlaka);
+    
+    const resultsContainer = document.querySelector('#search-results');
+    if (resultsContainer && uniqueAlternatives.length > 0) {
+        resultsContainer.innerHTML = `
+            <div class="alert alert-info">
+                <h5><i class="fas fa-lightbulb"></i> Alternatif Öneriler</h5>
+                <p>Benzer plaka seçenekleri:</p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    ${uniqueAlternatives.map(alt => `
+                        <button class="btn btn-outline-primary btn-sm" onclick="selectAlternative('${alt}')">
+                            ${alt}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+    }
+}
+
+// Select alternative plaka
+function selectAlternative(plaka) {
+    const parts = plaka.split(' ');
+    if (parts.length >= 3) {
+        const ilKodu = parts[0];
+        const harf = parts[1];
+        const sayi = parts.slice(2).join('');
+        
+        document.querySelector('#ilKodu').value = ilKodu;
+        document.querySelector('#plakaHarf').value = harf;
+        document.querySelector('#plakaSayi').value = sayi;
+        
+        // Update preview
+        const updateEvent = new Event('input', { bubbles: true });
+        document.querySelector('#plakaHarf').dispatchEvent(updateEvent);
+        
+        showNotification(`${plaka} seçildi. Sorgulamak için "Sorgula" butonuna tıklayın.`, 'info');
+    }
+}

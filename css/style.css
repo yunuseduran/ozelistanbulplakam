@@ -75,6 +75,12 @@ h1, h2, h3, h4, h5, h6 {
 /* Header Styles */
 .header {
     z-index: 1000;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
@@ -127,13 +133,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hero Section */
 .hero {
-    margin-top: 85px; /* Logo büyüdüğü için margin artırdık */
+    margin-top: 0; /* Tam ekran için margin kaldırıldı */
     position: relative;
 }
 
 .carousel-item {
-    height: 75vh;
-    min-height: 600px;
+    height: 100vh; /* Tam ekran yükseklik */
+    min-height: 100vh;
     position: relative;
 }
 
@@ -154,6 +160,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 2;
     display: flex;
     align-items: center;
+    padding-top: 100px; /* Navbar için boşluk */
 }
 
 /* 1. Slide - Yazılar solda */
@@ -210,7 +217,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .carousel-indicators {
-    bottom: 2rem;
+    bottom: 3rem;
+    z-index: 15;
 }
 
 /* Section Styles */
@@ -523,8 +531,8 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 767.98px) {
     .carousel-item {
-        height: 60vh;
-        min-height: 450px;
+        height: 100vh;
+        min-height: 100vh;
     }
     
     /* Mobile'da yazılar merkeze alsın */
@@ -594,8 +602,8 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 575.98px) {
     .carousel-item {
-        height: 50vh;
-        min-height: 350px;
+        height: 100vh;
+        min-height: 100vh;
     }
     
     .hero-content {
@@ -825,18 +833,69 @@ a:focus {
 
 #search-results .alert {
     border: none;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 #search-results .alert-success {
-    background: linear-gradient(135deg, #d4edda, #c3e6cb);
-    border-left: 4px solid #28a745;
+    background: linear-gradient(135deg, #d1f2eb, #a3e4d7);
+    border-left: 5px solid #28a745;
 }
 
 #search-results .alert-warning {
-    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-    border-left: 4px solid #ffc107;
+    background: linear-gradient(135deg, #fef9e7, #fcf3cf);
+    border-left: 5px solid #ffc107;
+}
+
+#search-results .alert h5 {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+
+#search-results .alert p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+#search-results .btn {
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#search-results .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#search-results .btn-success {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border: none;
+}
+
+#search-results .btn-outline-success {
+    border: 2px solid #28a745;
+    color: #28a745;
+    background: rgba(40, 167, 69, 0.05);
+}
+
+#search-results .btn-outline-success:hover {
+    background: #28a745;
+    color: white;
+}
+
+/* Loading Animation Enhancement */
+.loading {
+    border: 3px solid rgba(0, 51, 153, 0.2);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
 }
 
 /* Input Group Enhancements */
@@ -905,4 +964,123 @@ a:focus {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-color);
-} 
+}
+
+/* Plaka Preview Styles */
+.plaka-preview {
+    margin: 2rem 0;
+}
+
+.plaka-box {
+    display: inline-block;
+    background: #ffffff;
+    border: 3px solid #000;
+    border-radius: 8px;
+    padding: 10px 20px;
+    position: relative;
+    font-family: 'Arial', sans-serif;
+    font-weight: 900;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    min-width: 280px;
+}
+
+.plaka-box:hover {
+    transform: scale(1.05);
+}
+
+.country-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    background: #003399;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.country-code {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.plaka-content {
+    margin-left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 32px;
+    color: #000;
+    letter-spacing: 3px;
+    padding: 15px 10px;
+    font-weight: 900;
+    gap: 15px;
+}
+
+.plaka-content span {
+    font-family: 'Arial Black', Arial, sans-serif;
+}
+
+/* Form Improvements */
+.form-control-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+}
+
+.form-select-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+}
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-body {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+/* Responsive Plaka Preview */
+@media (max-width: 767.98px) {
+    .plaka-box {
+        min-width: 240px;
+        padding: 8px 15px;
+        transform: scale(0.9);
+    }
+    
+    .plaka-content {
+        font-size: 24px;
+        padding: 10px 5px;
+        margin-left: 45px;
+        gap: 10px;
+    }
+    
+    .country-section {
+        width: 40px;
+    }
+    
+    .country-code {
+        font-size: 12px;
+    }
+}
+
+/* Small Step Number Styles */
+.step-number-small {
+    width: 30px;
+    height: 30px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+}
